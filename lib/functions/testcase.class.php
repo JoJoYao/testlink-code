@@ -69,8 +69,8 @@ class testcase extends tlObjectWithAttachments {
 
   var $cfield_mgr;
 
-  var $import_file_types = array("XML" => "XML");
-  var $export_file_types = array("XML" => "XML");
+  var $import_file_types = array("XML" => "XML", "FEATURE" => "Gherkin (.feature)");
+  var $export_file_types = array("XML" => "XML", "FEATURE" => "Gherkin (.feature)");
   var $execution_types = array();
   var $cfg;
   var $debugMsg;

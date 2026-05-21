@@ -11,6 +11,7 @@
 require_once("../../config.inc.php");
 require_once("../functions/common.php");
 require_once("../functions/xml.inc.php");
+require_once("../functions/gherkin.class.php");
 testlinkInitPage($db);
 $templateCfg = templateConfiguration();
 
@@ -86,6 +87,13 @@ if( $args->doExport || ( $args->doExportSkel && !$gui->oneTestCaseExport ) ) {
   }
   $tsuite_mgr = new testsuite($db);
 
+  if ($args->exportType == 'FEATURE') {
+    $content = exportToFeature($tcase_mgr,$tsuite_mgr,$args,$gui);
+    $gui->export_filename = preg_replace('/\.xml$/i','',$gui->export_filename) . '.feature';
+    downloadContentsToFile($content,$gui->export_filename);
+    exit();
+  }
+
   $pfn = null;
   switch($args->exportType) {
     case 'XML':
@@ -127,6 +135,37 @@ $gui->containerID=$args->container_id;
 $smarty = new TLSmarty();
 $smarty->assign('gui',$gui);
 $smarty->display($templateCfg->template_dir . $templateCfg->default_template);
+
+
+/**
+ * Build Gherkin (.feature) content for the current export selection.
+ * Each exported test case becomes a Scenario; preconditions map to the
+ * Given block, step actions to When and expected results to Then.
+ */
+function exportToFeature(&$tcase_mgr,&$tsuite_mgr,$args,$gui) {
+  if ($gui->oneTestCaseExport) {
+    $rs = $tcase_mgr->get_by_id($args->tcase_id,$args->tcversion_id);
+    $tc = $rs[0];
+    return gherkin::testCaseToFeature($tc['name'],$tc['summary'],
+             $tc['preconditions'],$tc['steps'],$tc['name']);
+  }
+
+  // Test suite (one suite or whole project): each test case -> a Scenario.
+  $featureName = $gui->object_name != '' ? $gui->object_name : $args->tproject_name;
+  $ids = $tsuite_mgr->get_testcases_deep($args->container_id,'only_id');
+  $testCases = array();
+  if (is_array($ids)) {
+    foreach ($ids as $tcID) {
+      $rs = $tcase_mgr->get_by_id($tcID,testcase::LATEST_VERSION);
+      if (is_array($rs) && isset($rs[0])) {
+        $testCases[] = array('name' => $rs[0]['name'],
+                             'preconditions' => $rs[0]['preconditions'],
+                             'steps' => $rs[0]['steps']);
+      }
+    }
+  }
+  return gherkin::testCasesToFeature($testCases,$featureName);
+}
 
 
 /*

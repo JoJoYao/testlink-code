@@ -15,6 +15,7 @@ require('../../config.inc.php');
 require_once('common.php');
 require_once('csv.inc.php');
 require_once('xml.inc.php');
+require_once(TL_ABS_PATH . '/lib/functions/gherkin.class.php');
 
 testlinkInitPage($db);
 
@@ -49,6 +50,14 @@ if ($args->do_upload) {
         case 'XML':
           $pcheck_fn = "check_xml_tc_tsuite";
           $pimport_fn = "importTestCaseDataFromXML";
+          break;
+
+        case 'FEATURE':
+          // Gherkin / BDD: scenarios are imported as test cases into a test
+          // suite, so recursion (test suite tree) does not apply.
+          $args->useRecursion = 0;
+          $pcheck_fn = "check_feature_file";
+          $pimport_fn = "importTestCaseDataFromFeature";
           break;
       }
 
@@ -591,10 +600,48 @@ function check_xml_tc_tsuite($fileName,$recursiveMode) {
 
 
 
-/* contribution by mirosvad - 
-   Convert new line characters from XLS to HTML 
+/**
+ * Validate an uploaded Gherkin (.feature) file.
+ * Accepts the file when it declares a Feature and at least one Scenario.
+ */
+function check_feature_file($fileName,$recursiveMode) {
+  $file_check = array('status_ok' => 0, 'msg' => lang_get('wrong_feature_file'));
+  if(file_exists($fileName)) {
+    $content = file_get_contents($fileName);
+    $parsed = gherkin::parse($content);
+    if($parsed['name'] != '' && count($parsed['scenarios']) > 0) {
+      $file_check = array('status_ok' => 1, 'msg' => 'ok');
+    }
+  }
+  return $file_check;
+}
+
+/**
+ * Import a Gherkin (.feature) file. The feature is converted to TestLink's
+ * native test specification XML and then imported through the standard XML
+ * pipeline, so duplicate handling and all DB logic are reused.
+ */
+function importTestCaseDataFromFeature(&$db,$fileName,$parentID,$tproject_id,$userID,$options=null) {
+  tLog('importTestCaseDataFromFeature called for file: '. $fileName);
+  $resultMap = null;
+  if(file_exists($fileName)) {
+    $xml = gherkin::featureToTestSpecXML(file_get_contents($fileName));
+    $xmlFile = $fileName . '.converted.xml';
+    if(file_put_contents($xmlFile, $xml) !== false) {
+      $opt = (array)$options;
+      $opt['useRecursion'] = false;
+      $resultMap = importTestCaseDataFromXML($db,$xmlFile,$parentID,$tproject_id,$userID,$opt);
+      @unlink($xmlFile);
+    }
+  }
+  return $resultMap;
+}
+
+
+/* contribution by mirosvad -
+   Convert new line characters from XLS to HTML
 */
-function nl2p($str)  
+function nl2p($str)
 {
   return str_replace('<p></p>', '', '<p>' . preg_replace('#\n|\r#', '</p>$0<p>', $str) . '</p>'); //MS
 }

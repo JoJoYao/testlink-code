@@ -2965,6 +2965,7 @@ $TLS_title_tc_import_to = "Import Test Cases";
 $TLS_title_tsuite_import_to = "Import Test Suite";
 $TLS_wrong_xml_tcase_file = "Wrong xml Test Case file";
 $TLS_wrong_xml_tsuite_file = "Wrong xml Test Suite file";
+$TLS_wrong_feature_file = "Wrong Gherkin .feature file (a Feature and at least one Scenario are required)";
 $TLS_cf_value_not_imported_missing_cf_on_testproject = "Value of Custom Field '%s' ".
     "can not be imported because there is no Custom Field with this name " .
     "and Available for %s on this Test Project";
