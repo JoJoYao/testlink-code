@@ -6,9 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
     'Smarty' => $vendorDir . '/smarty/smarty/libs/Smarty.class.php',
-    'SmartyBC' => $vendorDir . '/smarty/smarty/libs/SmartyBC.class.php',
     'SmartyCompilerException' => $vendorDir . '/smarty/smarty/libs/sysplugins/smartycompilerexception.php',
     'SmartyException' => $vendorDir . '/smarty/smarty/libs/sysplugins/smartyexception.php',
     'Smarty_Autoloader' => $vendorDir . '/smarty/smarty/libs/Autoloader.php',
@@ -48,7 +49,6 @@ return array(
     'Smarty_Internal_Compile_If' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_if.php',
     'Smarty_Internal_Compile_Ifclose' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_if.php',
     'Smarty_Internal_Compile_Include' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_include.php',
-    'Smarty_Internal_Compile_Include_Php' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_include_php.php',
     'Smarty_Internal_Compile_Insert' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_insert.php',
     'Smarty_Internal_Compile_Ldelim' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_ldelim.php',
     'Smarty_Internal_Compile_Make_Nocache' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_make_nocache.php',
@@ -61,7 +61,6 @@ return array(
     'Smarty_Internal_Compile_Private_Modifier' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_modifier.php',
     'Smarty_Internal_Compile_Private_Object_Block_Function' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_object_block_function.php',
     'Smarty_Internal_Compile_Private_Object_Function' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_object_function.php',
-    'Smarty_Internal_Compile_Private_Php' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_php.php',
     'Smarty_Internal_Compile_Private_Print_Expression' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_print_expression.php',
     'Smarty_Internal_Compile_Private_Registered_Block' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_registered_block.php',
     'Smarty_Internal_Compile_Private_Registered_Function' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_compile_private_registered_function.php',
@@ -142,7 +141,6 @@ return array(
     'Smarty_Internal_Resource_Extends' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_extends.php',
     'Smarty_Internal_Resource_File' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_file.php',
     'Smarty_Internal_Resource_Php' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_php.php',
-    'Smarty_Internal_Resource_Registered' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_registered.php',
     'Smarty_Internal_Resource_Stream' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_stream.php',
     'Smarty_Internal_Resource_String' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_resource_string.php',
     'Smarty_Internal_Runtime_CacheModify' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_runtime_cachemodify.php',
@@ -181,4 +179,6 @@ return array(
     'Stringable' => $vendorDir . '/myclabs/php-enum/stubs/Stringable.php',
     'TPC_yyStackEntry' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_configfileparser.php',
     'TP_yyStackEntry' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
+    'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+    'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
 );

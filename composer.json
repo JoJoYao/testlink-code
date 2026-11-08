@@ -1,20 +1,19 @@
 {
     "config": {
         "platform": {
-            "php": "7.4.2"
+            "php": "7.4.33"
         }
     },
     "require": {
         "slim/slim": "4.*",
-        "slim/psr7": "^0.6.0",
+        "slim/psr7": "^1.6",
         "nyholm/psr7": "^1.2",
         "nyholm/psr7-server": "^0.4.1",
-        "guzzlehttp/psr7": "^1.6",
+        "guzzlehttp/psr7": "^2.8",
         "http-interop/http-factory-guzzle": "^1.0",
-        "laminas/laminas-diactoros": "^2.2",
         "adodb/adodb-php": "^5.22",
         "phpmailer/phpmailer": "^6.1",
-        "smarty/smarty": "^3.1",
+        "smarty/smarty": "^4.5.7",
         "psr/log": "^1.1",
         "symfony/polyfill-mbstring": "^1.15",
         "league/oauth2-client": "^2.4",
